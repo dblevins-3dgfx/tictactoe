@@ -9,6 +9,8 @@ public:
     ~Application();
 
     void Run();
+    bool IsRunning() { return mRunning; }
+    bool Stop() { mRunning = false; }
 
 private:
     void Init();
@@ -18,7 +20,7 @@ private:
     void Cleanup();
 
 private:
-    bool mRunning = true;
+    bool mRunning = false;
     SDL_Window* m_Window;
     SDL_Renderer *m_Renderer;
     SDL_Texture *mBoardTexture = nullptr;

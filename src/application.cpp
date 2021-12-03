@@ -25,7 +25,7 @@ void Application::Run()
     Init();
 
     mRunning = true;
-    while (mRunning)
+    while (IsRunning())
     {
         HandleInputs();
         Update();
@@ -54,7 +54,7 @@ void Application::HandleInputs()
     {
         if (event.type == SDL_QUIT)
         {
-            mRunning = false;
+            Stop();
         }
     }
 }

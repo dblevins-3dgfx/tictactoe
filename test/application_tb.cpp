@@ -5,6 +5,5 @@
 TEST(Application_TB, TestConstruction) {
     Application app;
 
-    // Not testable yet
-    ASSERT_TRUE(true);
+    ASSERT_FALSE(app.IsRunning());
 }
