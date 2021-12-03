@@ -24,6 +24,7 @@ void Application::Run()
 {
     Init();
 
+    mRunning = true;
     while (mRunning)
     {
         HandleInputs();
