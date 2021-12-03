@@ -22,47 +22,53 @@ Application::Application()
 
 void Application::Run()
 {
+    Init();
+
+    while (mRunning)
+    {
+        HandleInputs();
+        Update();
+        Render();
+    }
+
+    Cleanup();
+}
+
+void Application::Init()
+{
     SDL_Surface *boardImage = IMG_Load("../assets/images/board.png");
     assert(boardImage != nullptr);
 
-    SDL_Texture *ourPNG = SDL_CreateTextureFromSurface(m_Renderer, boardImage);
-    assert(ourPNG != nullptr);
+    mBoardTexture = SDL_CreateTextureFromSurface(m_Renderer, boardImage);
+    assert(mBoardTexture != nullptr);
 
     SDL_FreeSurface(boardImage);
+}
 
-    // Infinite loop for our application
-    bool gameIsRunning = true;
-    // Main application loop
-    while (gameIsRunning)
+void Application::HandleInputs()
+{
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event))
     {
-        SDL_Event event;
-
-        // (1) Handle Input
-        // Start our event loop
-        while (SDL_PollEvent(&event))
+        if (event.type == SDL_QUIT)
         {
-            // Handle each specific event
-            if (event.type == SDL_QUIT)
-            {
-                gameIsRunning = false;
-            }
+            mRunning = false;
         }
-        // (2) Handle Updates
-
-        // (3) Clear and Draw the Screen
-        // Gives us a clear "canvas"
-        SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
-        SDL_RenderClear(m_Renderer);
-
-        SDL_RenderCopy(m_Renderer, ourPNG, NULL, NULL);
-
-        // Finally show what we've drawn
-        SDL_RenderPresent(m_Renderer);
     }
+}
 
-    // And destroy our texture
-    SDL_DestroyTexture(ourPNG);
+void Application::Render()
+{
+    SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(m_Renderer);
+    SDL_RenderCopy(m_Renderer, mBoardTexture, NULL, NULL);
+    SDL_RenderPresent(m_Renderer);
+}
 
+void Application::Cleanup()
+{
+    SDL_DestroyTexture(mBoardTexture);
 }
 
 Application::~Application()
