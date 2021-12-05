@@ -2,26 +2,34 @@
 
 #include <SDL2/SDL.h>
 
-class Application
+#include <configuration.h>
+
+namespace TTT
 {
-public:
-    Application();
-    ~Application();
 
-    void Run();
-    bool IsRunning() { return mRunning; }
-    void Stop() { mRunning = false; }
+    class Application
+    {
+    public:
+        Application(const Configuration& config);
+        ~Application();
 
-private:
-    void Init();
-    void HandleInputs();
-    void Update() {} //NOP for now
-    void Render();
-    void Cleanup();
+        void Run();
+        bool IsRunning() { return mRunning; }
+        void Stop() { mRunning = false; }
 
-private:
-    bool mRunning = false;
-    SDL_Window* m_Window;
-    SDL_Renderer *m_Renderer;
-    SDL_Texture *mBoardTexture = nullptr;
-};
+    private:
+        void Init();
+        void HandleInputs();
+        void Update() {} //NOP for now
+        void Render();
+        void Cleanup();
+
+    private:
+        const Configuration& mConfiguration;
+        bool mRunning = false;
+        SDL_Window *mWindow;
+        SDL_Renderer *mRenderer;
+        SDL_Texture *mBoardTexture = nullptr;
+    };
+
+}

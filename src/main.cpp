@@ -2,7 +2,8 @@
 
 int main(int argc, char *argv[])
 {
-    Application app;
+    TTT::Configuration config;
+    TTT::Application app(config);
 
     app.Run();
 

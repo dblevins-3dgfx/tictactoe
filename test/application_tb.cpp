@@ -3,7 +3,8 @@
 #include "application.h"
 
 TEST(Application_TB, TestConstruction) {
-    Application app;
+    TTT::Configuration config;
+    TTT::Application app(config);
 
     ASSERT_FALSE(app.IsRunning());
 }

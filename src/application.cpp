@@ -4,77 +4,82 @@
 
 #include "application.h"
 
-Application::Application()
+namespace TTT
 {
-    int initStatus = SDL_Init(SDL_INIT_VIDEO);
-    assert(initStatus == 0);
 
-    m_Window = SDL_CreateWindow("Tic Tac Toe", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
-    assert(m_Window != nullptr);
-
-    m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
-    assert(m_Renderer != nullptr);
-
-    int flags = IMG_INIT_PNG;
-    initStatus = IMG_Init(flags);
-    assert((initStatus & flags) == flags);
-}
-
-void Application::Run()
-{
-    Init();
-
-    mRunning = true;
-    while (IsRunning())
+    Application::Application(const Configuration &config) : mConfiguration(config)
     {
-        HandleInputs();
-        Update();
-        Render();
+        int initStatus = SDL_Init(SDL_INIT_VIDEO);
+        assert(initStatus == 0);
+
+        mWindow = SDL_CreateWindow("Tic Tac Toe", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
+        assert(mWindow != nullptr);
+
+        mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+        assert(mRenderer != nullptr);
+
+        int flags = IMG_INIT_PNG;
+        initStatus = IMG_Init(flags);
+        assert((initStatus & flags) == flags);
     }
 
-    Cleanup();
-}
-
-void Application::Init()
-{
-    SDL_Surface *boardImage = IMG_Load("../assets/images/board.png");
-    assert(boardImage != nullptr);
-
-    mBoardTexture = SDL_CreateTextureFromSurface(m_Renderer, boardImage);
-    assert(mBoardTexture != nullptr);
-
-    SDL_FreeSurface(boardImage);
-}
-
-void Application::HandleInputs()
-{
-    SDL_Event event;
-
-    while (SDL_PollEvent(&event))
+    void Application::Run()
     {
-        if (event.type == SDL_QUIT)
+        Init();
+
+        mRunning = true;
+        while (IsRunning())
         {
-            Stop();
+            HandleInputs();
+            Update();
+            Render();
+        }
+
+        Cleanup();
+    }
+
+    void Application::Init()
+    {
+        SDL_Surface *boardSurface = IMG_Load(mConfiguration.GetBoardPNGPath().c_str());
+        assert(boardSurface != nullptr);
+
+        mBoardTexture = SDL_CreateTextureFromSurface(mRenderer, boardSurface);
+        assert(mBoardTexture != nullptr);
+
+        SDL_FreeSurface(boardSurface);
+    }
+
+    void Application::HandleInputs()
+    {
+        SDL_Event event;
+
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                Stop();
+            }
         }
     }
-}
 
-void Application::Render()
-{
-    SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(m_Renderer);
-    SDL_RenderCopy(m_Renderer, mBoardTexture, NULL, NULL);
-    SDL_RenderPresent(m_Renderer);
-}
+    void Application::Render()
+    {
+        SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(mRenderer);
+        SDL_RenderCopy(mRenderer, mBoardTexture, NULL, NULL);
+        SDL_RenderPresent(mRenderer);
+    }
 
-void Application::Cleanup()
-{
-    SDL_DestroyTexture(mBoardTexture);
-}
+    void Application::Cleanup()
+    {
+        SDL_DestroyTexture(mBoardTexture);
+    }
 
-Application::~Application()
-{
-    IMG_Quit();
-    SDL_DestroyWindow(m_Window);
-    SDL_Quit();
+    Application::~Application()
+    {
+        IMG_Quit();
+        SDL_DestroyWindow(mWindow);
+        SDL_Quit();
+    }
+
 }
