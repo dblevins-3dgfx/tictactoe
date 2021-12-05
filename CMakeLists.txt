@@ -24,17 +24,18 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 enable_testing()
 
 add_executable(
-  application_tb
+  testbench
   src/application.cpp
   test/application_tb.cpp
+  test/configuration_tb.cpp
 )
 target_link_libraries(
-  application_tb
+  testbench
   gtest_main
   ${SDL2_LIBRARIES} 
   SDL2_image
 )
-target_include_directories(application_tb PUBLIC include)
+target_include_directories(testbench PUBLIC include)
 
 include(GoogleTest)
-gtest_discover_tests(application_tb)
+gtest_discover_tests(testbench)
