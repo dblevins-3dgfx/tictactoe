@@ -10,7 +10,7 @@ public:
 
     void Run();
     bool IsRunning() { return mRunning; }
-    bool Stop() { mRunning = false; }
+    void Stop() { mRunning = false; }
 
 private:
     void Init();

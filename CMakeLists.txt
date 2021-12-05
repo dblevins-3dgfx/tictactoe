@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14.0)
+cmake_minimum_required(VERSION 3.14)
 
 project(ttt VERSION 0.1.0)
 
@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/05CC6081FCBD0071053DE78238E136B3.zip
+  URL https://github.com/google/googletest/archive/refs/tags/release-1.11.0.zip
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -35,7 +35,6 @@ target_link_libraries(
   SDL2_image
 )
 target_include_directories(application_tb PUBLIC include)
-
 
 include(GoogleTest)
 gtest_discover_tests(application_tb)
