@@ -7,15 +7,15 @@
 namespace TTT
 {
 
-    Application::Application(const Configuration &config) : mConfiguration(config)
+    Application::Application(SDL::SDLShim& shim, const Configuration &config) : mSDL(shim), mConfiguration(config)
     {
-        int initStatus = SDL_Init(SDL_INIT_VIDEO);
+        int initStatus = mSDL.Init(SDL_INIT_VIDEO);
         assert(initStatus == 0);
 
-        mWindow = SDL_CreateWindow("Tic Tac Toe", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
+        mWindow = mSDL.CreateWindow("Tic Tac Toe", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
         assert(mWindow != nullptr);
 
-        mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+        mRenderer = mSDL.CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
         assert(mRenderer != nullptr);
 
         int flags = IMG_INIT_PNG;

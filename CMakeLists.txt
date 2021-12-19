@@ -31,7 +31,8 @@ add_executable(
 )
 target_link_libraries(
   testbench
-  gtest_main
+  gmock
+  gmock_main
   ${SDL2_LIBRARIES} 
   SDL2_image
 )

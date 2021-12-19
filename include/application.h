@@ -1,8 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-
-#include <configuration.h>
+#include "sdlshim.h"
+#include "configuration.h"
 
 namespace TTT
 {
@@ -10,7 +9,7 @@ namespace TTT
     class Application
     {
     public:
-        Application(const Configuration& config);
+        Application(SDL::SDLShim& shim, const Configuration& config);
         ~Application();
 
         void Run();
@@ -25,6 +24,7 @@ namespace TTT
         void Cleanup();
 
     private:
+        SDL::SDLShim& mSDL;
         const Configuration& mConfiguration;
         bool mRunning = false;
         SDL_Window *mWindow;
