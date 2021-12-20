@@ -2,7 +2,9 @@
 
 #include <SDL2/SDL.h>
 
-#include <configuration.h>
+#include "assetmanager.h"
+#include "configuration.h"
+#include "gamestate.h"
 
 namespace TTT
 {
@@ -22,14 +24,20 @@ namespace TTT
         void HandleInputs();
         void Update() {} //NOP for now
         void Render();
+        void RenderGame();
         void Cleanup();
 
     private:
+        AssetManager mAssetManager;
+
         const Configuration& mConfiguration;
         bool mRunning = false;
         SDL_Window *mWindow;
         SDL_Renderer *mRenderer;
         SDL_Texture *mBoardTexture = nullptr;
+        SDL_Texture *mXTexture = nullptr;
+        SDL_Texture *mOTexture = nullptr;
+        GameState mGameState;
     };
 
 }

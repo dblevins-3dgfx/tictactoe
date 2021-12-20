@@ -40,13 +40,8 @@ namespace TTT
 
     void Application::Init()
     {
-        SDL_Surface *boardSurface = IMG_Load(mConfiguration.GetBoardPNGPath().c_str());
-        assert(boardSurface != nullptr);
-
-        mBoardTexture = SDL_CreateTextureFromSurface(mRenderer, boardSurface);
-        assert(mBoardTexture != nullptr);
-
-        SDL_FreeSurface(boardSurface);
+        
+        mBoardTexture = mAssetManager.LoadTexture(mRenderer, mConfiguration.GetBoardPNGPath());
     }
 
     void Application::HandleInputs()
@@ -66,13 +61,18 @@ namespace TTT
     {
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(mRenderer);
-        SDL_RenderCopy(mRenderer, mBoardTexture, NULL, NULL);
+        RenderGame();
         SDL_RenderPresent(mRenderer);
+    }
+
+    void Application::RenderGame()
+    {
+        SDL_RenderCopy(mRenderer, mBoardTexture, NULL, NULL);
     }
 
     void Application::Cleanup()
     {
-        SDL_DestroyTexture(mBoardTexture);
+        mAssetManager.UnloadTexture(mBoardTexture);
     }
 
     Application::~Application()
