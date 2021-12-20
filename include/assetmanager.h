@@ -1,10 +1,10 @@
 #pragma once
 
-#include <assert.h>
 #include <string>
+#include <unordered_map>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+struct SDL_Renderer;
+struct SDL_Texture;
 
 namespace TTT
 {
@@ -12,26 +12,19 @@ namespace TTT
     class AssetManager
     {
     public:
+        explicit AssetManager(SDL_Renderer *renderer = nullptr);
+        ~AssetManager();
+        SDL_Texture *LoadTexture(const std::string &texturePath);
+        void UnloadTexture(SDL_Texture *texture);
 
-        SDL_Texture *LoadTexture(SDL_Renderer *renderer, const std::string &texturePath)
+        void SetRenderer(SDL_Renderer *renderer)
         {
-            SDL_Surface *surface = IMG_Load(texturePath.c_str());
-            assert(surface != nullptr);
-
-            SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-            assert(texture != nullptr);
-
-            SDL_FreeSurface(surface);
-            return texture;
-        }
-
-        void UnloadTexture(SDL_Texture *texture)
-        {
-            SDL_DestroyTexture(texture);
+            mRenderer = renderer;
         }
 
     private:
-
+        SDL_Renderer *mRenderer;
+        std::unordered_map<std::string, SDL_Texture*> mTextureStore;
     };
 
 }

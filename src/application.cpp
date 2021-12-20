@@ -18,9 +18,7 @@ namespace TTT
         mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
         assert(mRenderer != nullptr);
 
-        int flags = IMG_INIT_PNG;
-        initStatus = IMG_Init(flags);
-        assert((initStatus & flags) == flags);
+        mAssetManager.SetRenderer(mRenderer);
     }
 
     void Application::Run()
@@ -40,8 +38,7 @@ namespace TTT
 
     void Application::Init()
     {
-        
-        mBoardTexture = mAssetManager.LoadTexture(mRenderer, mConfiguration.GetBoardPNGPath());
+        mBoardTexture = mAssetManager.LoadTexture(mConfiguration.GetBoardPNGPath());
     }
 
     void Application::HandleInputs()
@@ -77,7 +74,6 @@ namespace TTT
 
     Application::~Application()
     {
-        IMG_Quit();
         SDL_DestroyWindow(mWindow);
         SDL_Quit();
     }

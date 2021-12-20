@@ -17,7 +17,11 @@ FetchContent_MakeAvailable(googletest)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(${PROJECT_NAME} src/main.cpp src/application.cpp)
+add_executable(${PROJECT_NAME} 
+  src/main.cpp
+  src/application.cpp
+  src/assetmanager.cpp
+)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} SDL2_image)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
@@ -26,6 +30,7 @@ enable_testing()
 add_executable(
   testbench
   src/application.cpp
+  src/assetmanager.cpp
   test/application_tb.cpp
   test/configuration_tb.cpp
   test/gamestate_tb.cpp
