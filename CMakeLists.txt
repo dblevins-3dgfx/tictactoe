@@ -28,6 +28,7 @@ add_executable(
   src/application.cpp
   test/application_tb.cpp
   test/configuration_tb.cpp
+  test/gamestate_tb.cpp
 )
 target_link_libraries(
   testbench
