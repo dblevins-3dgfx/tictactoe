@@ -49,9 +49,5 @@ namespace TTT
 
         return texture;
     }
-
-    void AssetManager::UnloadTexture(SDL_Texture *texture)
-    {
-    }
-
+    
 }

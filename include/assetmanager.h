@@ -15,7 +15,6 @@ namespace TTT
         explicit AssetManager(SDL_Renderer *renderer = nullptr);
         ~AssetManager();
         SDL_Texture *LoadTexture(const std::string &texturePath);
-        void UnloadTexture(SDL_Texture *texture);
 
         void SetRenderer(SDL_Renderer *renderer)
         {
