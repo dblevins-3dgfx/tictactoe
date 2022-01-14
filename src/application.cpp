@@ -40,14 +40,34 @@ namespace TTT
     {
         mBoardTexture = mAssetManager.LoadTexture(mConfiguration.GetBoardPNGPath());
         mXTexture = mAssetManager.LoadTexture(mConfiguration.GetXPNGPath());
-        mOTexture = mAssetManager.LoadTexture(mConfiguration.GetOPNGPath());
-        const auto X = GameState::Mark::X;
-        const auto O = GameState::Mark::O;
-        const auto _ = GameState::Mark::empty;
-        mGameState.Position[0][0] = X;
-        mGameState.Position[1][1] = O;
-        
+        mOTexture = mAssetManager.LoadTexture(mConfiguration.GetOPNGPath());        
     }
+
+    void Application::OnMouseButtonDown(const SDL_MouseButtonEvent& mbe)
+    {
+        if (mbe.button == SDL_BUTTON_LEFT)
+        {
+            SDL_Point p;
+            p.x = mbe.x;
+            p.y = mbe.y;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (mGameState.Position[i][j] == GameState::Mark::empty)
+                    {
+                        auto r = mConfiguration.Position[i][j];
+                        if (SDL_PointInRect(&p, &r))
+                        {
+                            mGameState.Position[i][j] = mCurrentPlayer;
+                            mCurrentPlayer = NextPlayer();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     void Application::HandleInputs()
     {
@@ -59,6 +79,11 @@ namespace TTT
             {
                 Stop();
             }
+            if (event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                OnMouseButtonDown(event.button);
+            }
+
         }
     }
 
@@ -73,6 +98,15 @@ namespace TTT
     void Application::RenderGame()
     {
         SDL_RenderCopy(mRenderer, mBoardTexture, NULL, NULL);
+
+        if (mCurrentPlayer == GameState::Mark::X)
+        {
+            SDL_RenderCopy(mRenderer, mXTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
+        }
+        else
+        {
+            SDL_RenderCopy(mRenderer, mOTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
+        }       
 
         for (int i = 0; i < 3; i++)
         {

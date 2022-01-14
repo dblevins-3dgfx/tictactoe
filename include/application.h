@@ -26,6 +26,18 @@ namespace TTT
         void Render();
         void RenderGame();
         void Cleanup();
+        void OnMouseButtonDown(const SDL_MouseButtonEvent& mbe);
+        GameState::Mark NextPlayer()
+        {
+            if (mCurrentPlayer == GameState::Mark::X)
+            {
+                return GameState::Mark::O;
+            }
+            else 
+            {
+                return GameState::Mark::X;
+            }
+        }
 
     private:
         AssetManager mAssetManager;
@@ -38,6 +50,7 @@ namespace TTT
         SDL_Texture *mXTexture = nullptr;
         SDL_Texture *mOTexture = nullptr;
         GameState mGameState;
+        GameState::Mark mCurrentPlayer = GameState::Mark::X;
     };
 
 }

@@ -25,6 +25,8 @@ namespace TTT
                     Position[i][j] = {col[j], row[i], 110, 110};
                 }
             }
+
+            CurrentPlayerIndicator = {0, 0, 55, 55};
         }
 
         const std::string GetBoardPNGPath() const { return "../assets/images/board.png"; }
@@ -32,6 +34,7 @@ namespace TTT
         const std::string GetOPNGPath() const { return "../assets/images/O.png"; }
 
         SDL_Rect Position[3][3];
+        SDL_Rect CurrentPlayerIndicator;
     };
 
 }
