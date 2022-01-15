@@ -34,6 +34,7 @@ add_executable(
   test/application_tb.cpp
   test/configuration_tb.cpp
   test/gamestate_tb.cpp
+  test/gamelogic_tb.cpp
 )
 target_link_libraries(
   testbench

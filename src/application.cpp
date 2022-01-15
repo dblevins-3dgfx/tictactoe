@@ -87,6 +87,12 @@ namespace TTT
         }
     }
 
+    void Application::Update()
+    {
+        mWinner = GameLogic::CheckWinner(mGameState);
+    }
+
+
     void Application::Render()
     {
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
@@ -99,14 +105,28 @@ namespace TTT
     {
         SDL_RenderCopy(mRenderer, mBoardTexture, NULL, NULL);
 
-        if (mCurrentPlayer == GameState::Mark::X)
+        if (mWinner == GameLogic::Winner::none)
         {
-            SDL_RenderCopy(mRenderer, mXTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
+            if (mCurrentPlayer == GameState::Mark::X)
+            {
+                SDL_RenderCopy(mRenderer, mXTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
+            }
+            else
+            {
+                SDL_RenderCopy(mRenderer, mOTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
+            }
         }
         else
         {
-            SDL_RenderCopy(mRenderer, mOTexture, NULL, &mConfiguration.CurrentPlayerIndicator);
-        }       
+            if (mWinner == GameLogic::Winner::X)
+            {
+                SDL_RenderCopy(mRenderer, mXTexture, NULL, NULL);
+            }
+            else
+            {
+                SDL_RenderCopy(mRenderer, mOTexture, NULL, NULL);
+            }            
+        }
 
         for (int i = 0; i < 3; i++)
         {

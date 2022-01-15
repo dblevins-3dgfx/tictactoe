@@ -5,6 +5,7 @@
 #include "assetmanager.h"
 #include "configuration.h"
 #include "gamestate.h"
+#include "gamelogic.h"
 
 namespace TTT
 {
@@ -22,7 +23,7 @@ namespace TTT
     private:
         void Init();
         void HandleInputs();
-        void Update() {} //NOP for now
+        void Update();
         void Render();
         void RenderGame();
         void Cleanup();
@@ -51,6 +52,7 @@ namespace TTT
         SDL_Texture *mOTexture = nullptr;
         GameState mGameState;
         GameState::Mark mCurrentPlayer = GameState::Mark::X;
+        GameLogic::Winner mWinner = GameLogic::Winner::none;
     };
 
 }
