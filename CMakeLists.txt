@@ -17,6 +17,8 @@ FetchContent_MakeAvailable(googletest)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
+
 add_executable(${PROJECT_NAME} 
   src/main.cpp
   src/application.cpp

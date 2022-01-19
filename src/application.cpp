@@ -12,7 +12,11 @@ namespace TTT
         int initStatus = SDL_Init(SDL_INIT_VIDEO);
         assert(initStatus == 0);
 
-        mWindow = SDL_CreateWindow("Tic Tac Toe", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
+        const int WinPosX = 20;
+        const int WinPosY = 20;
+        const int WinWidth = 640;
+        const int WinHeight = 480;
+        mWindow = SDL_CreateWindow("Tic Tac Toe", WinPosX, WinPosY, WinWidth, WinHeight, SDL_WINDOW_SHOWN);
         assert(mWindow != nullptr);
 
         mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -57,7 +61,7 @@ namespace TTT
                     if (mGameState.Position[i][j] == GameState::Mark::empty)
                     {
                         auto r = mConfiguration.Position[i][j];
-                        if (SDL_PointInRect(&p, &r))
+                        if (SDL_PointInRect(&p, &r) == SDL_TRUE)
                         {
                             mGameState.Position[i][j] = mCurrentPlayer;
                             mCurrentPlayer = NextPlayer();
@@ -72,7 +76,7 @@ namespace TTT
     {
         SDL_Event event;
 
-        while (SDL_PollEvent(&event))
+        while (SDL_PollEvent(&event) == SDL_TRUE)
         {
             if (event.type == SDL_QUIT)
             {
@@ -92,7 +96,10 @@ namespace TTT
 
     void Application::Render()
     {
-        SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xFF, SDL_ALPHA_OPAQUE);
+        const int red = 0;
+        const int green = 0;
+        const int blue = 0xff;
+        SDL_SetRenderDrawColor(mRenderer, red, green, blue, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(mRenderer);
         RenderGame();
         SDL_RenderPresent(mRenderer);
