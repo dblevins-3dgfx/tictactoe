@@ -50,20 +50,6 @@ TEST(GameState_TB, TestCopyConstruction)
     ASSERT_EQ(copy[0][0], TTT::GameState::empty);
 }
 
-TEST(GameState_TB, TestToChar)
-{
-    ASSERT_EQ(' ', GameState::ToChar(GameState::empty));
-    ASSERT_EQ('X', GameState::ToChar(GameState::X));
-    ASSERT_EQ('O', GameState::ToChar(GameState::O));
-}
-
-TEST(GameState_TB, TestFromChar)
-{
-    ASSERT_EQ(GameState::empty, GameState::FromChar(' '));
-    ASSERT_EQ(GameState::X, GameState::FromChar('X'));
-    ASSERT_EQ(GameState::O, GameState::FromChar('O'));
-}
-
 TEST(GameState_TB, TestSerializeEmpty)
 {
     TTT::GameState uut;
