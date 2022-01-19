@@ -18,6 +18,16 @@ TEST(GameState_TB, TestRow0_XWin)
     ASSERT_EQ(TTT::GameLogic::Winner::X, TTT::GameLogic::CheckWinner(uut));
 }
 
+TEST(GameState_TB, TestRow1_XWin)
+{
+    TTT::GameState uut("   "
+                       "XXX"
+                       "OO ");
+
+    ASSERT_EQ(TTT::GameLogic::Winner::X, TTT::GameLogic::CheckWinner(uut));
+}
+
+
 TEST(GameState_TB, TestCol0_OWin)
 {
     TTT::GameState uut("OXX"

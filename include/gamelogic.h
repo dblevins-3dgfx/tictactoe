@@ -39,7 +39,6 @@ namespace TTT
                     (gs.Position[i][0] == gs.Position[i][2]))
                 {
                     result = Winner(gs.Position[i][0]);
-                    break;
                 }
             }
             return result;
@@ -54,7 +53,6 @@ namespace TTT
                     (gs.Position[0][j] == gs.Position[2][j]))
                 {
                     result = Winner(gs.Position[0][j]);
-                    break;
                 }
             }
             return result;
