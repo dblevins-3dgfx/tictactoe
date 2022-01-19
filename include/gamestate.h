@@ -3,12 +3,14 @@
 #include <string>
 #include <cstring>
 #include <assert.h>
+#include <array>
 
 namespace TTT
 {
 
-    struct GameState
+    class GameState
     {
+    public:
         enum Mark
         {
             empty = 0,
@@ -25,7 +27,7 @@ namespace TTT
 
         void Reset()
         {
-            memset(Position, empty, sizeof(Position));
+            mRow = {};
         }
 
         static unsigned char ToChar(Mark m)
@@ -67,7 +69,7 @@ namespace TTT
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    result.append(1, ToChar(Position[i][j]));
+                    result.append(1, ToChar(mRow[i][j]));
                 }
             }
             return result;
@@ -81,12 +83,39 @@ namespace TTT
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    Position[i][j] = FromChar(s[idx++]);
+                    mRow[i][j] = FromChar(s[idx++]);
                 }
             }
         }
 
-        Mark Position[3][3] = {};
+        class Row
+        {
+        public:
+            Mark &operator[](int i)
+            {
+                return mRowElem.at(i);
+            }
+
+            Mark operator[](int i) const
+            {
+                return mRowElem.at(i);
+            }
+
+        private:
+            std::array<Mark, 3> mRowElem{};
+        };
+
+        Row &operator[](int i)
+        {
+            return mRow.at(i);
+        }
+        const Row &operator[](int i) const
+        {
+            return mRow.at(i);
+        }
+
+    private:
+        std::array<Row, 3> mRow{};
     };
 
 }

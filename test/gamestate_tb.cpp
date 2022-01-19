@@ -12,7 +12,7 @@ static bool IsNewGame(const TTT::GameState &gs)
     {
         for (int j = 0; j < 3; j++)
         {
-            if (gs.Position[i][j] != TTT::GameState::empty)
+            if (gs[i][j] != TTT::GameState::empty)
             {
                 result = false;
             }
@@ -34,7 +34,7 @@ TEST(GameState_TB, TestReset)
     TTT::GameState uut;
 
     ASSERT_TRUE(IsNewGame(uut));
-    uut.Position[0][0] = TTT::GameState::X;
+    uut[0][0] = TTT::GameState::X;
     ASSERT_FALSE(IsNewGame(uut));
     uut.Reset();
     ASSERT_TRUE(IsNewGame(uut));
@@ -43,11 +43,11 @@ TEST(GameState_TB, TestReset)
 TEST(GameState_TB, TestCopyConstruction)
 {
     TTT::GameState orig;
-    orig.Position[2][2] = TTT::GameState::O;
+    orig[2][2] = TTT::GameState::O;
 
     TTT::GameState copy(orig);
-    ASSERT_EQ(copy.Position[2][2], TTT::GameState::O);
-    ASSERT_EQ(copy.Position[0][0], TTT::GameState::empty);
+    ASSERT_EQ(copy[2][2], TTT::GameState::O);
+    ASSERT_EQ(copy[0][0], TTT::GameState::empty);
 }
 
 TEST(GameState_TB, TestToChar)
@@ -77,7 +77,7 @@ TEST(GameState_TB, TestSerializeOneX)
 {
     TTT::GameState uut;
 
-    uut.Position[0][0] = GameState::Mark::X;
+    uut[0][0] = GameState::Mark::X;
     ASSERT_EQ("X  "
               "   "
               "   ",
@@ -88,17 +88,17 @@ TEST(GameState_TB, TestSerializeLots)
 {
     TTT::GameState uut;
 
-    uut.Position[0][0] = GameState::Mark::X;
-    uut.Position[0][1] = GameState::Mark::O;
-    uut.Position[0][2] = GameState::Mark::X;
+    uut[0][0] = GameState::Mark::X;
+    uut[0][1] = GameState::Mark::O;
+    uut[0][2] = GameState::Mark::X;
 
-    uut.Position[1][0] = GameState::Mark::O;
-    uut.Position[1][1] = GameState::Mark::X;
-    uut.Position[1][2] = GameState::Mark::O;
+    uut[1][0] = GameState::Mark::O;
+    uut[1][1] = GameState::Mark::X;
+    uut[1][2] = GameState::Mark::O;
 
-    uut.Position[2][0] = GameState::Mark::X;
-    uut.Position[2][1] = GameState::Mark::O;
-    uut.Position[2][2] = GameState::Mark::X;
+    uut[2][0] = GameState::Mark::X;
+    uut[2][1] = GameState::Mark::O;
+    uut[2][2] = GameState::Mark::X;
     ASSERT_EQ("XOX"
               "OXO"
               "XOX",
@@ -108,7 +108,7 @@ TEST(GameState_TB, TestSerializeLots)
 TEST(GameState_TB, TestDeserializeEmpty)
 {
     TTT::GameState uut;
-    uut.Position[0][0] = GameState::Mark::X;
+    uut[0][0] = GameState::Mark::X;
     uut.Deserialize("   "
                     "   "
                     "   ");
@@ -122,17 +122,17 @@ TEST(GameState_TB, TestDeserialize)
     uut.Deserialize("XOX"
                     "OXO"
                     "XOX");
-    ASSERT_EQ(GameState::Mark::X, uut.Position[0][0]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[0][1]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[0][2]);
+    ASSERT_EQ(GameState::Mark::X, uut[0][0]);
+    ASSERT_EQ(GameState::Mark::O, uut[0][1]);
+    ASSERT_EQ(GameState::Mark::X, uut[0][2]);
 
-    ASSERT_EQ(GameState::Mark::O, uut.Position[1][0]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[1][1]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[1][2]);
+    ASSERT_EQ(GameState::Mark::O, uut[1][0]);
+    ASSERT_EQ(GameState::Mark::X, uut[1][1]);
+    ASSERT_EQ(GameState::Mark::O, uut[1][2]);
 
-    ASSERT_EQ(GameState::Mark::X, uut.Position[2][0]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[2][1]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[2][2]);
+    ASSERT_EQ(GameState::Mark::X, uut[2][0]);
+    ASSERT_EQ(GameState::Mark::O, uut[2][1]);
+    ASSERT_EQ(GameState::Mark::X, uut[2][2]);
 }
 
 TEST(GameState_TB, TestStringConstruction)
@@ -140,15 +140,15 @@ TEST(GameState_TB, TestStringConstruction)
     TTT::GameState uut("XOX"
                        "OXO"
                        "XOX");
-    ASSERT_EQ(GameState::Mark::X, uut.Position[0][0]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[0][1]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[0][2]);
+    ASSERT_EQ(GameState::Mark::X, uut[0][0]);
+    ASSERT_EQ(GameState::Mark::O, uut[0][1]);
+    ASSERT_EQ(GameState::Mark::X, uut[0][2]);
 
-    ASSERT_EQ(GameState::Mark::O, uut.Position[1][0]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[1][1]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[1][2]);
+    ASSERT_EQ(GameState::Mark::O, uut[1][0]);
+    ASSERT_EQ(GameState::Mark::X, uut[1][1]);
+    ASSERT_EQ(GameState::Mark::O, uut[1][2]);
 
-    ASSERT_EQ(GameState::Mark::X, uut.Position[2][0]);
-    ASSERT_EQ(GameState::Mark::O, uut.Position[2][1]);
-    ASSERT_EQ(GameState::Mark::X, uut.Position[2][2]);
+    ASSERT_EQ(GameState::Mark::X, uut[2][0]);
+    ASSERT_EQ(GameState::Mark::O, uut[2][1]);
+    ASSERT_EQ(GameState::Mark::X, uut[2][2]);
 }

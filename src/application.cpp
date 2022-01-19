@@ -58,12 +58,12 @@ namespace TTT
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (mGameState.Position[i][j] == GameState::Mark::empty)
+                    if (mGameState[i][j] == GameState::Mark::empty)
                     {
                         auto r = mConfiguration.Position[i][j];
                         if (SDL_PointInRect(&p, &r) == SDL_TRUE)
                         {
-                            mGameState.Position[i][j] = mCurrentPlayer;
+                            mGameState[i][j] = mCurrentPlayer;
                             mCurrentPlayer = NextPlayer();
                         }
                     }
@@ -136,12 +136,12 @@ namespace TTT
         {
             for (int j = 0; j < 3; j++)
             {
-                //SDL_RenderDrawRect(mRenderer, &mConfiguration.Position[i][j]);
-                if (mGameState.Position[i][j] == GameState::Mark::X)
+                //SDL_RenderDrawRect(mRenderer, &mConfiguration[i][j]);
+                if (mGameState[i][j] == GameState::Mark::X)
                 {
                     SDL_RenderCopy(mRenderer, mXTexture, NULL, &mConfiguration.Position[i][j]);
                 }
-                else if (mGameState.Position[i][j] == GameState::Mark::O)
+                else if (mGameState[i][j] == GameState::Mark::O)
                 {
                     SDL_RenderCopy(mRenderer, mOTexture, NULL, &mConfiguration.Position[i][j]);
                 }
