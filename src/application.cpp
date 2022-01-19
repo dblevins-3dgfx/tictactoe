@@ -40,10 +40,10 @@ namespace TTT
     {
         mBoardTexture = mAssetManager.LoadTexture(mConfiguration.GetBoardPNGPath());
         mXTexture = mAssetManager.LoadTexture(mConfiguration.GetXPNGPath());
-        mOTexture = mAssetManager.LoadTexture(mConfiguration.GetOPNGPath());        
+        mOTexture = mAssetManager.LoadTexture(mConfiguration.GetOPNGPath());
     }
 
-    void Application::OnMouseButtonDown(const SDL_MouseButtonEvent& mbe)
+    void Application::OnMouseButtonDown(const SDL_MouseButtonEvent &mbe)
     {
         if (mbe.button == SDL_BUTTON_LEFT)
         {
@@ -68,7 +68,6 @@ namespace TTT
         }
     }
 
-
     void Application::HandleInputs()
     {
         SDL_Event event;
@@ -83,7 +82,6 @@ namespace TTT
             {
                 OnMouseButtonDown(event.button);
             }
-
         }
     }
 
@@ -91,7 +89,6 @@ namespace TTT
     {
         mWinner = GameLogic::CheckWinner(mGameState);
     }
-
 
     void Application::Render()
     {
@@ -125,7 +122,7 @@ namespace TTT
             else
             {
                 SDL_RenderCopy(mRenderer, mOTexture, NULL, NULL);
-            }            
+            }
         }
 
         for (int i = 0; i < 3; i++)

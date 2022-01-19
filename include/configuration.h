@@ -5,7 +5,6 @@
 
 namespace TTT
 {
-
     // Eventually this could/should be constructed from a
     // configuration file (JSON). Hardwired for now.
     class Configuration
@@ -17,11 +16,13 @@ namespace TTT
             const int colw = 160;
             const int rowoff = 40;
             const int rowh = 140;
-            const int col[3] {coloff, coloff+colw, coloff+(2*colw)};
-            const int row[3] {rowoff, rowoff+rowh, rowoff+(2*rowh)};
+            const int col[3]{coloff, coloff + colw, coloff + (2 * colw)};
+            const int row[3]{rowoff, rowoff + rowh, rowoff + (2 * rowh)};
 
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
                     Position[i][j] = {col[j], row[i], 110, 110};
                 }
             }

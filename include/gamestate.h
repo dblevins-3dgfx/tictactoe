@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <cstring>
 #include <assert.h>
 
@@ -17,7 +18,7 @@ namespace TTT
 
         GameState() = default;
 
-        GameState(const std::string& s)
+        GameState(const std::string &s)
         {
             Deserialize(s);
         }
@@ -29,17 +30,19 @@ namespace TTT
 
         static unsigned char ToChar(Mark m)
         {
-            unsigned char result = ' ';
             switch (m)
             {
-                case X:
-                    result = 'X';
-                    break;
-                case O:
-                    result = 'O';
-                    break;
+            case empty:
+                return ' ';
+                break;
+            case X:
+                return 'X';
+                break;
+            case O:
+                return 'O';
+                break;
             }
-            return result;
+            return ' ';
         }
 
         static Mark FromChar(unsigned char c)
@@ -47,12 +50,12 @@ namespace TTT
             Mark result = Mark::empty;
             switch (c)
             {
-                case 'X':
-                    result = Mark::X;
-                    break;
-                case 'O':
-                    result = Mark::O;
-                    break;
+            case 'X':
+                result = Mark::X;
+                break;
+            case 'O':
+                result = Mark::O;
+                break;
             }
             return result;
         }
@@ -62,7 +65,7 @@ namespace TTT
             std::string result;
             for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++) 
+                for (int j = 0; j < 3; j++)
                 {
                     result.append(1, ToChar(Position[i][j]));
                 }
@@ -70,17 +73,17 @@ namespace TTT
             return result;
         }
 
-        void Deserialize(const std::string& s)
+        void Deserialize(const std::string &s)
         {
             assert(s.size() == 9);
             int idx = 0;
             for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++) 
+                for (int j = 0; j < 3; j++)
                 {
                     Position[i][j] = FromChar(s[idx++]);
                 }
-            }            
+            }
         }
 
         Mark Position[3][3] = {};

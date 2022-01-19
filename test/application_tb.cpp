@@ -2,7 +2,8 @@
 
 #include "application.h"
 
-TEST(Application_TB, TestConstruction) {
+TEST(Application_TB, TestConstruction)
+{
     TTT::Configuration config;
     TTT::Application app(config);
 

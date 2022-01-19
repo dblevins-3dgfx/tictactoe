@@ -4,7 +4,7 @@
 
 using TTT::GameState;
 
-static bool IsNewGame(const TTT::GameState& gs)
+static bool IsNewGame(const TTT::GameState &gs)
 {
     bool result = true;
 
@@ -67,9 +67,10 @@ TEST(GameState_TB, TestFromChar)
 TEST(GameState_TB, TestSerializeEmpty)
 {
     TTT::GameState uut;
-    ASSERT_EQ(  "   "
-                "   "
-                "   ", uut.Serialize());
+    ASSERT_EQ("   "
+              "   "
+              "   ",
+              uut.Serialize());
 }
 
 TEST(GameState_TB, TestSerializeOneX)
@@ -77,9 +78,10 @@ TEST(GameState_TB, TestSerializeOneX)
     TTT::GameState uut;
 
     uut.Position[0][0] = GameState::Mark::X;
-    ASSERT_EQ(  "X  "
-                "   "
-                "   ", uut.Serialize());  
+    ASSERT_EQ("X  "
+              "   "
+              "   ",
+              uut.Serialize());
 }
 
 TEST(GameState_TB, TestSerializeLots)
@@ -97,9 +99,10 @@ TEST(GameState_TB, TestSerializeLots)
     uut.Position[2][0] = GameState::Mark::X;
     uut.Position[2][1] = GameState::Mark::O;
     uut.Position[2][2] = GameState::Mark::X;
-    ASSERT_EQ(  "XOX"
-                "OXO"
-                "XOX", uut.Serialize());  
+    ASSERT_EQ("XOX"
+              "OXO"
+              "XOX",
+              uut.Serialize());
 }
 
 TEST(GameState_TB, TestDeserializeEmpty)
@@ -134,9 +137,9 @@ TEST(GameState_TB, TestDeserialize)
 
 TEST(GameState_TB, TestStringConstruction)
 {
-    TTT::GameState uut( "XOX"
-                        "OXO"
-                        "XOX");
+    TTT::GameState uut("XOX"
+                       "OXO"
+                       "XOX");
     ASSERT_EQ(GameState::Mark::X, uut.Position[0][0]);
     ASSERT_EQ(GameState::Mark::O, uut.Position[0][1]);
     ASSERT_EQ(GameState::Mark::X, uut.Position[0][2]);
@@ -149,6 +152,3 @@ TEST(GameState_TB, TestStringConstruction)
     ASSERT_EQ(GameState::Mark::O, uut.Position[2][1]);
     ASSERT_EQ(GameState::Mark::X, uut.Position[2][2]);
 }
-
-
-

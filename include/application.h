@@ -13,7 +13,7 @@ namespace TTT
     class Application
     {
     public:
-        Application(const Configuration& config);
+        Application(const Configuration &config);
         ~Application();
 
         void Run();
@@ -27,14 +27,14 @@ namespace TTT
         void Render();
         void RenderGame();
         void Cleanup();
-        void OnMouseButtonDown(const SDL_MouseButtonEvent& mbe);
+        void OnMouseButtonDown(const SDL_MouseButtonEvent &mbe);
         GameState::Mark NextPlayer()
         {
             if (mCurrentPlayer == GameState::Mark::X)
             {
                 return GameState::Mark::O;
             }
-            else 
+            else
             {
                 return GameState::Mark::X;
             }
@@ -43,7 +43,7 @@ namespace TTT
     private:
         AssetManager mAssetManager;
 
-        const Configuration& mConfiguration;
+        const Configuration &mConfiguration;
         bool mRunning = false;
         SDL_Window *mWindow;
         SDL_Renderer *mRenderer;

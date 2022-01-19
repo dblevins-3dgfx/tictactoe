@@ -23,7 +23,7 @@ namespace TTT
 
     private:
         SDL_Renderer *mRenderer;
-        std::unordered_map<std::string, SDL_Texture*> mTextureStore;
+        std::unordered_map<std::string, SDL_Texture *> mTextureStore;
     };
 
 }
