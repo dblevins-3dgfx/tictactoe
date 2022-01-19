@@ -2,10 +2,6 @@
 
 #include "gamelogic.h"
 
-constexpr static auto X = TTT::GameState::Mark::X;
-constexpr static auto O = TTT::GameState::Mark::O;
-constexpr static auto _ = TTT::GameState::Mark::empty;
-
 TEST(GameState_TB, TestNewGame_NoWinner)
 {
     TTT::GameState uut;
