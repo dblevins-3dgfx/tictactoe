@@ -1,0 +1,20 @@
+@startuml
+hide empty description
+
+[*] --> PlayGame
+
+state PlayGame {
+    state CheckWinner <<choice>>
+
+    [*] --> Initialize
+    Initialize --> Turn
+    Initialize : ClearBoard
+    Initialize : Player = X
+    Turn --> CheckWinner : LEFTMOUSE [IsSquareEmpty]
+    CheckWinner --> Turn : [else] / \nMarkSquare\nPlayer = !Player
+    CheckWinner --> GameOver : [IsWinner|BoardFull]
+    GameOver --> Initialize : LEFTMOUSE
+}
+PlayGame --> [*] : QUIT
+
+@enduml
